@@ -3,6 +3,7 @@ package com.android.annotation.launcher;
 import android.app.Application;
 import android.content.Context;
 
+import com.android.annotation.core.LogisticsCenter;
 import com.android.annotation.thread.DefaultPoolExecutor;
 
 import java.util.concurrent.ThreadPoolExecutor;
