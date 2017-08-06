@@ -42,20 +42,6 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Filer;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.Processor;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedOptions;
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
-
 import compiler.utils.Consts;
 import compiler.utils.TypeUtils;
 
@@ -121,7 +107,17 @@ public class RouteProcessor extends AbstractProcessor{
     }
 
     @Override
-    public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnvironment) {
+        if (CollectionUtils.isNotEmpty(annotations)) {
+            Set<? extends Element> routeElements = roundEnvironment.getElementsAnnotatedWith(Route.class);
+            try {
+                this.parseRoutes(routeElements);
+
+            } catch (Exception e) {
+            }
+            return true;
+        }
+
         return false;
     }
 
