@@ -184,4 +184,20 @@ public class LogisticsCenter {
         }
     }
 
+
+    /**
+     * Build postcard by serviceName
+     *
+     * @param serviceName interfaceName
+     * @return postcard
+     */
+    public static Postcard buildProvider(String serviceName) {
+        RouteMeta meta = Warehouse.providersIndex.get(serviceName);
+
+        if (null == meta) {
+            return null;
+        } else {
+            return new Postcard(meta.getPath(), meta.getGroup());
+        }
+    }
 }

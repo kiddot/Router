@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.SparseArray;
 
+import com.android.annotation.launcher.Router;
 import com.android.annotation.model.RouteMeta;
 import com.android.annotation.template.IProvider;
 
@@ -33,7 +34,7 @@ public final class Postcard extends RouteMeta {
     private int timeout = 300;      // Navigation timeout, TimeUnit.Second
     private IProvider provider;     // It will be set value, if this postcard was provider.
     private boolean greenChannel;
-    private SerializationService serializationService;
+    //private SerializationService serializationService;
 
     // Animation
     private Bundle optionsCompat;    // The transition animation of activity
@@ -131,16 +132,7 @@ public final class Postcard extends RouteMeta {
      * @param context Activity and so on.
      */
     public Object navigation(Context context) {
-        return navigation(context, null);
-    }
-
-    /**
-     * Navigation to the route with path in postcard.
-     *
-     * @param context Activity and so on.
-     */
-    public Object navigation(Context context, NavigationCallback callback) {
-        return ARouter.getInstance().navigation(context, this, -1, callback);
+        return Router.getInstance().navigation(context, null, 0);
     }
 
     /**
@@ -150,17 +142,7 @@ public final class Postcard extends RouteMeta {
      * @param requestCode startActivityForResult's param
      */
     public void navigation(Activity mContext, int requestCode) {
-        navigation(mContext, requestCode, null);
-    }
-
-    /**
-     * Navigation to the route with path in postcard.
-     *
-     * @param mContext    Activity and so on.
-     * @param requestCode startActivityForResult's param
-     */
-    public void navigation(Activity mContext, int requestCode, NavigationCallback callback) {
-        ARouter.getInstance().navigation(mContext, this, requestCode, callback);
+        Router.getInstance().navigation(mContext, this, requestCode);
     }
 
     /**
@@ -233,11 +215,11 @@ public final class Postcard extends RouteMeta {
      * @param value a Object, or null
      * @return current
      */
-    public Postcard withObject(@Nullable String key, @Nullable Object value) {
-        serializationService = ARouter.getInstance().navigation(SerializationService.class);
-        mBundle.putString(key, serializationService.object2Json(value));
-        return this;
-    }
+//    public Postcard withObject(@Nullable String key, @Nullable Object value) {
+//        serializationService = Router.getInstance().navigation(SerializationService.class);
+//        mBundle.putString(key, serializationService.object2Json(value));
+//        return this;
+//    }
 
     // Follow api copy from #{Bundle}
 
