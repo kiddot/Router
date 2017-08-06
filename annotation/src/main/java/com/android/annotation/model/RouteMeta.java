@@ -4,12 +4,15 @@ import com.android.annotation.enums.RouteType;
 
 import java.util.Map;
 
+import javax.lang.model.element.Element;
+
 /**
  * Created by kiddo on 17-8-6.
  */
 
 public class RouteMeta {
     private RouteType routeType;
+    private Element rawType;        // Raw type of route
     private Class<?> destination;
     private String path;
     private String group;
@@ -33,7 +36,7 @@ public class RouteMeta {
      * @return this
      */
     public static RouteMeta build(RouteType type, Class<?> destination, String path, String group, int priority, int extra) {
-        return new RouteMeta(type, destination, path, group, null, priority, extra);
+        return new RouteMeta(type, null, destination, path, group, null, priority, extra);
     }
 
     /**
@@ -49,13 +52,14 @@ public class RouteMeta {
      * @return this
      */
     public static RouteMeta build(RouteType type, Class<?> destination, String path, String group, Map<String, Integer> paramsType, int priority, int extra) {
-        return new RouteMeta(type, destination, path, group, paramsType, priority, extra);
+        return new RouteMeta(type, null, destination, path, group, paramsType, priority, extra);
     }
 
     /**
      * Type
      *
      * @param type        type
+     * @param rawType     rawType
      * @param destination destination
      * @param path        path
      * @param group       group
@@ -63,9 +67,10 @@ public class RouteMeta {
      * @param priority    priority
      * @param extra       extra
      */
-    public RouteMeta(RouteType type, Class<?> destination, String path, String group, Map<String, Integer> paramsType, int priority, int extra) {
+    public RouteMeta(RouteType type, Element rawType, Class<?> destination, String path, String group, Map<String, Integer> paramsType, int priority, int extra) {
         this.routeType = type;
         this.destination = destination;
+        this.rawType = rawType;
         this.path = path;
         this.group = group;
         this.paramsType = paramsType;
@@ -127,5 +132,13 @@ public class RouteMeta {
 
     public void setParamsType(Map<String, Integer> paramsType) {
         this.paramsType = paramsType;
+    }
+
+    public Element getRawType() {
+        return rawType;
+    }
+
+    public void setRawType(Element rawType) {
+        this.rawType = rawType;
     }
 }
