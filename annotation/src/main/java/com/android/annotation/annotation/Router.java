@@ -1,4 +1,4 @@
-package com.android.annotation;
+package com.android.annotation.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
