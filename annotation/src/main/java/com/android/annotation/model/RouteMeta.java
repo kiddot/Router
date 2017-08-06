@@ -1,5 +1,6 @@
 package com.android.annotation.model;
 
+import com.android.annotation.annotation.Route;
 import com.android.annotation.enums.RouteType;
 
 import java.util.Map;
@@ -22,6 +23,29 @@ public class RouteMeta {
 
     public RouteMeta(){
 
+    }
+
+    /**
+     * Type
+     *
+     * @param route       route
+     * @param destination destination
+     * @param type        type
+     */
+    public RouteMeta(Route route, Class<?> destination, RouteType type) {
+        this(type, null, destination, route.path(), route.group(), null, route.priority(), route.extras());
+    }
+
+    /**
+     * Type
+     *
+     * @param route      route
+     * @param rawType    rawType
+     * @param type       type
+     * @param paramsType paramsType
+     */
+    public RouteMeta(Route route, Element rawType, RouteType type, Map<String, Integer> paramsType) {
+        this(type, rawType, null, route.path(), route.group(), paramsType, route.priority(), route.extras());
     }
 
     /**
